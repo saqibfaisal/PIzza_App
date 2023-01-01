@@ -25,7 +25,7 @@ function Login({ navigation }) {
                 database().ref(`appUsers/${model.id}`).set(model)
 
                 setModel(initialData)
-                console.log('res', res)
+                // console.log('res', res)
             })
             .catch(err => {
                 setModel(initialData)

@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import Login from '../screen/login';
 import AddItem from '../screen/additem';
 import Home from '../screen/Home';
+import Admin from '../screen/admin';
 
 
 // let category;
@@ -47,13 +48,14 @@ const StackNavigator = () => (
         <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} /> */}
         {/* <Stack.Screen name='Item Details' component={ItemDetails} /> */}
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
+        <Stack.Screen name='Admin' component={Admin} options={{ headerShown: false }} />
     </Stack.Navigator>
 )
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => (
     <Tab.Navigator
-        screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#DC3535' }}
+        screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#07ABF1' }}
     >
         <Tab.Screen name="Home"
             component={Home}

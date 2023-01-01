@@ -43,7 +43,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       <View>
-        <View style={[style.bgDark, { paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between' }]}>
+        <View style={{ backgroundColor: "#07ABF1", paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Home</Text>
           <TouchableOpacity onPress={logoutUser}>
             <Icon name='logout' size={25} color='white' />
@@ -57,7 +57,7 @@ const Home = ({ navigation }) => {
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 10 }} >
               {list.length > 0 ? list.map((e, i) => (
                 <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 10, marginTop: 20 }} key={i}>
-                  <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#DC3535', backgroundColor: 'white' }}>
+                  <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#07ABF1', backgroundColor: 'white' }}>
                     <View style={{ alignItems: 'center' }}>
                       <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 10, borderTopLeftRadius: 10 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
                     </View>
@@ -70,9 +70,7 @@ const Home = ({ navigation }) => {
               ))
                 : (
                   <View>
-                    {/* <View style={{ borderWidth: 1, height: '100%' }}> */}
                     <Text>No Data</Text>
-                    {/* </View> */}
                   </View>
                 )
               }

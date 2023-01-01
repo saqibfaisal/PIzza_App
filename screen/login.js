@@ -21,22 +21,30 @@ function Login({ navigation }) {
             .then(res => {
                 const user = res.user
                 database().ref(`appUsers/${user.uid}`).on('value', dt => {
-                    category = dt.val().category
-
+                    let category = dt.val().category
+                        console.log(category,"jsfdsjk");
                     const storeData = async () => {
                         try {
                             const jsonValue = JSON.stringify(dt.val())
                             await AsyncStorage.setItem('LoginKey', jsonValue)
                             setModel(initialData)
                             setIsLoading(false)
-                            navigation.navigate('HomeScreen')
-                            console.log('Data stored', jsonValue)
+                            if (category == "user") {
+                                navigation.navigate('HomeScreen')
+                                // navigation("")
+                            }
+                            else {
+                                navigation.navigate("Admin")
+                            }
+                            // navigation.navigate('HomeScreen')
+                            // console.log('Data stored', jsonValue)
                         } catch (e) {
                             // saving error
                             console.log('Data not stored', e)
                         }
                     }
                     storeData()
+
                 })
             })
             .catch(err => {
