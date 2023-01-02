@@ -10,28 +10,31 @@ import Login from '../screen/login';
 import AddItem from '../screen/additem';
 import Home from '../screen/Home';
 import Admin from '../screen/admin';
-
-
+import database from '@react-native-firebase/database'
+import WishList from '../screen/wishlist';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import Detail from '../screen/assets/detail';
 // let category;
 let obj;
 let getCategory
 function AppNavigation() {
-
-    let getData = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem('LoginKey')
-            const data = jsonValue !== null ? JSON.parse(jsonValue) : null
-            if (data) {
-                obj = jsonValue
-                console.log('Data Receive', obj)
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-    getData()
-
+    // let [login, setLogin] = useState()
+    // let getData = async () => {
+    //     // try {
+    //     const jsonValue = await AsyncStorage.getItem('LoginKey')
+    //     const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+    //     setLogin(data.category)
+    //     // console.log(data, "hello");
+    //     // obj = data
+    // }
+    // console.log(login, "type");
+    // // console.log(obj,"type");
+    // // console.log(data.category);
+    // useEffect(() => {
+    //     getData()
+    // }, [])
     return (
+
         <NavigationContainer>
             <StackNavigator />
         </NavigationContainer>
@@ -41,57 +44,81 @@ function AppNavigation() {
 const Stack = createNativeStackNavigator()
 const StackNavigator = () => (
     <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} options={{headerShown:false}}/>
-        <Stack.Screen name='SignUp' component={SignUp} options={{headerShown:false}}/>
-        {/* <Stack.Screen  name='Additem' component={AddItem} options={{headerShown:false}}/> */}
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
         {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} /> */}
-        {/* <Stack.Screen name='Item Details' component={ItemDetails} /> */}
+        <Stack.Screen name='ItemDetails' component={Detail} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name='Admin' component={Admin} options={{ headerShown: false }} />
+        {/* <Stack.Screen name='Admin' component={Admin} options={{ headerShown: false }} /> */}
+        <Stack.Screen name='Additem' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
 )
 
 const Tab = createBottomTabNavigator();
-const TabNavigator = () => (
-    <Tab.Navigator
-        screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#07ABF1' }}
-    >
-        <Tab.Screen name="Home"
-            component={Home}
-            options={{
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/25/25694.png' }} />
-                        <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>HOME</Text>
-                    </>
-                )
-            }} />
-        {/* <Tab.Screen name="Orders"
-            component={Orders}
-            options={{
-                tabBarBadge: 1,
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/7322/7322265.png' }} />
-                        <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ORDERS</Text>
-                    </>
-                )
-            }} /> */}
+// const TabNavigator = () => {
+function TabNavigator() {
+    let [login, setLogin] = useState()
+    let getData = async () => {
+        // try {
+        const jsonValue = await AsyncStorage.getItem('LoginKey')
+        const data = jsonValue !== null ? JSON.parse(jsonValue) : null
+        setLogin(data.category)
+        // console.log(data, "hello");
+        // obj = data
+    }
+    let type = login == "user";
+    console.log(type);
+    // console.log(login, "type");
+    // console.log(obj,"type");
+    // console.log(data.category);
+    useEffect(() => {
+        getData()
+    }, [])
+    return (
 
 
-        <Tab.Screen name="Add"
-            component={AddItem}
-            options={{
-                tabBarIcon: ({ focused }) => (
-                    <>
-                        <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1237/1237946.png' }} />
-                        <Text style={{ marginTop: 1, fontSize: 12, color: focused ? 'white' : 'black' }}>ADD</Text>
-                    </>
-                )
-            }} />
+        < Tab.Navigator
+            screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#FA4A0C' }
+            }
+        >
+            {type ?
+                <>
+                    <Tab.Screen name="Home"
+                        component={Home}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Icon name='home' size={25} color= {focused ? "white":"black"} />
+                                </>
+                            )
+                        }} />
+                    <Tab.Screen name="WishList"
+                        component={WishList}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Icon name='favorite' size={25} color= {focused ? "white":"black"} />
+                                </>
+                            )
+                        }} />
+                </>
+                :
+                <Tab.Screen name="Add"
+                    component={AddItem}
+                    options={{
+                        tabBarIcon: ({ focused }) => (
+                            <>
+                                <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1237/1237946.png' }} />
+                            </>
+                        )
+                    }} />
+            }
 
-    </Tab.Navigator>
-)
+        </Tab.Navigator >
+
+
+    )
+}
 
 export default AppNavigation

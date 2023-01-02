@@ -32,7 +32,7 @@ const AddItem = () => {
     }
     return (
         <View>
-            <View style={{ backgroundColor: "#07ABF1", paddingVertical: 10 }}>
+            <View style={{ backgroundColor: "#FA4A0C", paddingVertical: 10 }}>
                 <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20 }}>Add Item</Text>
             </View>
             <View style={{ alignItems: 'center', marginTop: 25 }}>
@@ -41,7 +41,7 @@ const AddItem = () => {
                     <SMTextInput value={model.detail} placeholder='Detail' style={[styles.input]} onChangeText={e => setModel({ ...model, detail: e })} />
                     <SMTextInput keyboardType='number-pad' value={model.price} placeholder='Price' style={[styles.input]} onChangeText={e => setModel({ ...model, price: e })} />
                 </View>
-                <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={20} /> : 'Add'} touchableStyle={{ backgroundColor: "#07ABF1",  width: '30%', paddingVertical: 5, marginTop: 15, borderRadius: 20, paddingVertical: 8 }} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle: 'italic' }]} />
+                <SMTouchableOpacity onPress={add} value={isLoading ? <ActivityIndicator color='white' size={20} /> : 'Add'} touchableStyle={{ backgroundColor: "#FA4A0C", width: '30%', paddingVertical: 5, marginTop: 15, borderRadius: 20, paddingVertical: 8 }} textStyle={[style.colorWhite, { textAlign: 'center', fontWeight: 'bold', fontSize: 20, textStyle: 'italic' }]} />
             </View>
         </View>
     )

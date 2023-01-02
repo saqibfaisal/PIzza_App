@@ -1,27 +1,17 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, { useEffect } from 'react';
 import AppNavigation from './config/appNavigation';
-
+import SplashScreen from 'react-native-splash-screen'
 const App = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
 
+    }, 1500)
+  }, [])
   return (
-    <AppNavigation/>
+    // <></>
+    <AppNavigation />
     // <View>
     //   <Text>HELLO WORLED</Text>
     // </View>

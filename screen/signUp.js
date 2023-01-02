@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, TextInput, ToastAndroid } from 'react-native';
 import auth from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import database from '@react-native-firebase/database'
@@ -23,15 +23,17 @@ function Login({ navigation }) {
                 setIsLoading(false)
                 model.id = res.user.uid;
                 database().ref(`appUsers/${model.id}`).set(model)
-
+                ToastAndroid.show("Create Account Successfull", ToastAndroid.SHORT);
                 setModel(initialData)
                 // console.log('res', res)
             })
             .catch(err => {
                 setModel(initialData)
                 setIsLoading(false)
+                ToastAndroid.show("falied", ToastAndroid.SHORT);
                 console.log(err)
             })
+        setModel("")
     }
 
     return (
@@ -47,6 +49,7 @@ function Login({ navigation }) {
                     <View style={GlobalStyle.SignupView}>
                         <TextInput
                             style={GlobalStyle.SignupInput}
+                            value={model.userName}
                             onChangeText={e => setModel({ ...model, userName: e })}
                             placeholder="UserName*"
                         />
@@ -54,6 +57,7 @@ function Login({ navigation }) {
                     <View style={GlobalStyle.SignupView}>
                         <TextInput
                             style={GlobalStyle.SignupInput}
+                            value={model.userName}
                             onChangeText={e => setModel({ ...model, email: e })}
                             placeholder="Email*"
                         />
@@ -61,6 +65,7 @@ function Login({ navigation }) {
                     <View style={GlobalStyle.SignupView}>
                         <TextInput
                             style={GlobalStyle.SignupInput}
+                            value={model.userName}
                             onChangeText={e => setModel({ ...model, password: e })}
                             placeholder="Password*"
                         />
@@ -70,20 +75,21 @@ function Login({ navigation }) {
                             alignSelf: 'flex-end',
                             marginRight: 40,
                             marginVertical: 15,
-                            color: '#07ABF1',
+                            color: '#FA4A0C',
                         }}>
                         Forgot Password ?
                     </Text>
                     <TouchableOpacity
                         style={GlobalStyle.Button}
                         onPress={() => signupuser()}>
-                        <Text style={{ color: 'white', fontSize: 17 }}>Signup </Text>
+                        {isLoading ? <ActivityIndicator color="white" /> :
+                            <Text style={{ color: 'white', fontSize: 17 }}>Signup </Text>}
                     </TouchableOpacity>
 
                     <View style={{ marginVertical: 10, flexDirection: 'row', marginTop: 20 }}>
                         <Text>You have Already account </Text>
                         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                            <Text style={{ color: '#07ABF1' }}>Login</Text>
+                            <Text style={{ color: '#FA4A0C' }}>Login</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

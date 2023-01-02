@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, TextInput, ToastAndroid } from 'react-native';
 import auth from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import database from '@react-native-firebase/database'
@@ -21,42 +21,52 @@ function Login({ navigation }) {
             .then(res => {
                 const user = res.user
                 database().ref(`appUsers/${user.uid}`).on('value', dt => {
+                    setIsLoading(false)
                     let category = dt.val().category
-                        console.log(category,"jsfdsjk");
+                    // console.log(category, "jsfdsjk");
                     const storeData = async () => {
                         try {
                             const jsonValue = JSON.stringify(dt.val())
                             await AsyncStorage.setItem('LoginKey', jsonValue)
-                            setModel(initialData)
+                            // setModel(initialData)
+                            setModel("")
+                            ToastAndroid.show("Login Successfull", ToastAndroid.SHORT);
                             setIsLoading(false)
                             if (category == "user") {
                                 navigation.navigate('HomeScreen')
+                                setTimeout(() => {
+                                }, 1500)
                                 // navigation("")
                             }
                             else {
-                                navigation.navigate("Admin")
+                                navigation.navigate("Additem")
                             }
                             // navigation.navigate('HomeScreen')
                             // console.log('Data stored', jsonValue)
                         } catch (e) {
                             // saving error
+                            setIsLoading(false)
+                            ToastAndroid.show("Login falied", ToastAndroid.SHORT);
                             console.log('Data not stored', e)
                         }
                     }
                     storeData()
 
                 })
+                setModel("")
             })
             .catch(err => {
+                setIsLoading(false)
                 setModel(initialData)
                 setIsLoading(false)
                 console.log(err)
+                setModel("")
             })
     }
 
     return (
         <>
-            <View>
+            <View >
                 <View style={GlobalStyle.Signup}>
                     <Text style={{ fontSize: 25, marginTop: 100, fontWeight: 'bold' }}>
                         Welcome Back
@@ -67,6 +77,7 @@ function Login({ navigation }) {
                     <View style={GlobalStyle.SignupView}>
                         <TextInput
                             style={GlobalStyle.SignupInput}
+                            value={ model.email }
                             onChangeText={e => setModel({ ...model, email: e })}
                             placeholder="Email*"
                         />
@@ -74,6 +85,7 @@ function Login({ navigation }) {
                     <View style={GlobalStyle.SignupView}>
                         <TextInput
                             style={GlobalStyle.SignupInput}
+                            value={ model.password }
                             onChangeText={e => setModel({ ...model, password: e })}
                             placeholder="Password*"
                         />
@@ -83,25 +95,28 @@ function Login({ navigation }) {
                             alignSelf: 'flex-end',
                             marginRight: 40,
                             marginVertical: 15,
-                            color: '#07ABF1',
+                            color: '#FA4A0C',
                         }}>
                         Forgot Password ?
                     </Text>
                     <TouchableOpacity
                         style={GlobalStyle.Button}
-                        onPress={() => loginuser()}>
-                        <Text style={{ color: 'white', fontSize: 20 }}>Login </Text>
+                        onPress={() => loginuser()}>{isLoading ? <ActivityIndicator color='white' /> :
+                            <Text style={{ color: 'white', fontSize: 20 }}>Login </Text>}
                     </TouchableOpacity>
 
                     <View style={{ marginVertical: 10, flexDirection: 'row', marginTop: 20 }}>
                         <Text>Don't Have an Account? </Text>
                         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                            <Text style={{ color: '#07ABF1' }}>Create Account</Text>
+                            <Text style={{ color: '#FA4A0C' }}>Create Account</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
         </>
+        // <>
+        // <View
+        // </>
     );
 }
 export default Login;

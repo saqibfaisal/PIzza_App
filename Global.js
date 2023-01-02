@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
+
 // import Signup from './screens/signup';
 export const GlobalStyle = StyleSheet.create({
   SearchInput: {
@@ -47,7 +48,7 @@ export const GlobalStyle = StyleSheet.create({
     fontSize: 15,
   },
   Button: {
-    backgroundColor: '#07ABF1',
+    backgroundColor: '#FA4A0C',
     borderRadius: 20,
     padding: 12,
     paddingHorizontal: 40,
@@ -72,7 +73,7 @@ export const GlobalStyle = StyleSheet.create({
   },
   inputField: {
     width: '85%',
-    borderWidth:2,
+    borderWidth: 2,
     borderRadius: 10,
     padding: 0,
     color: 'white',
@@ -106,7 +107,7 @@ export const GlobalStyle = StyleSheet.create({
     marginHorizontal: 10,
   },
   todoText: {
-    paddingTop:5,
+    paddingTop: 5,
     width: '80%',
     color: 'black'
   },
@@ -121,6 +122,18 @@ export const GlobalStyle = StyleSheet.create({
     marginVertical: 15,
     fontSize: 20,
     textDecoration: 'underline'
-  }
+  },
+  Touchable: {
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 7,
+},
+shadowOpacity: 0.41,
+shadowRadius: 9.11,
 
+elevation: 14,
+    width:"80%",
+    alignItems:"center"
+  }
 });

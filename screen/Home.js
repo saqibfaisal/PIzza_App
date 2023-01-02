@@ -1,10 +1,11 @@
-import { View, Text, Image, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { View, Text, Image, ScrollView, ActivityIndicator, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import style from '../style'
 import database from '@react-native-firebase/database'
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
-
+import Pizza from "./assets/pizza.jpg";
+import { GlobalStyle } from "../Global";
 const Home = ({ navigation }) => {
 
   let [dataLoader, setDataLoader] = useState(false)
@@ -32,8 +33,8 @@ const Home = ({ navigation }) => {
     auth()
       .signOut()
       .then(() => {
-        console.log('User signed out!')
-        navigation.navigate('Login')
+        ToastAndroid.show("Logout", ToastAndroid.SHORT);
+        navigation.navigate('Logout')
       })
       .catch((err) => {
         console.log(err)
@@ -43,21 +44,21 @@ const Home = ({ navigation }) => {
   return (
     <>
       <View>
-        <View style={{ backgroundColor: "#07ABF1", paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ backgroundColor: "#FA4A0C", paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Home</Text>
           <TouchableOpacity onPress={logoutUser}>
             <Icon name='logout' size={25} color='white' />
           </TouchableOpacity>
         </View>
         {dataLoader ? <View style={{ height: '100%', justifyContent: 'center' }}>
-          <ActivityIndicator size={60} color='red' />
+          <ActivityIndicator size={60} color='#FA4A0C' />
         </View>
           :
           <ScrollView>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 10 }} >
               {list.length > 0 ? list.map((e, i) => (
-                <TouchableOpacity onPress={() => navigation.navigate('Item Details', e)} style={{ width: '50%', paddingHorizontal: 10, marginTop: 20 }} key={i}>
-                  <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#07ABF1', backgroundColor: 'white' }}>
+                <TouchableOpacity onPress={() => navigation.navigate('ItemDetails', e)} style={{ width: '50%', paddingHorizontal: 0, marginTop: 30 }} key={i}>
+                  <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#FA4A0C', backgroundColor: 'white' }}>
                     <View style={{ alignItems: 'center' }}>
                       <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 10, borderTopLeftRadius: 10 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
                     </View>
@@ -69,8 +70,9 @@ const Home = ({ navigation }) => {
                 </TouchableOpacity>
               ))
                 : (
-                  <View>
-                    <Text>No Data</Text>
+                  <View style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                    <Text style={{ textAlign: "center", fontSize: 30 }}>No Data</Text>
+                    <ActivityIndicator size={60} color='#FA4A0C' />
                   </View>
                 )
               }
