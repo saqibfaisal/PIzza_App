@@ -13,26 +13,8 @@ import Admin from '../screen/admin';
 import database from '@react-native-firebase/database'
 import WishList from '../screen/wishlist';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
-import Detail from '../screen/assets/detail';
-// let category;
-let obj;
-let getCategory
+import Detail from '../screen/detail';
 function AppNavigation() {
-    // let [login, setLogin] = useState()
-    // let getData = async () => {
-    //     // try {
-    //     const jsonValue = await AsyncStorage.getItem('LoginKey')
-    //     const data = jsonValue !== null ? JSON.parse(jsonValue) : null
-    //     setLogin(data.category)
-    //     // console.log(data, "hello");
-    //     // obj = data
-    // }
-    // console.log(login, "type");
-    // // console.log(obj,"type");
-    // // console.log(data.category);
-    // useEffect(() => {
-    //     getData()
-    // }, [])
     return (
 
         <NavigationContainer>
@@ -46,17 +28,13 @@ const StackNavigator = () => (
     <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
-        {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} /> */}
         <Stack.Screen name='ItemDetails' component={Detail} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
-        {/* <Stack.Screen name='Admin' component={Admin} options={{ headerShown: false }} /> */}
         <Stack.Screen name='Additem' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
 )
 
 const Tab = createBottomTabNavigator();
-// const TabNavigator = () => {
 function TabNavigator() {
     let [login, setLogin] = useState()
     let getData = async () => {
@@ -64,14 +42,9 @@ function TabNavigator() {
         const jsonValue = await AsyncStorage.getItem('LoginKey')
         const data = jsonValue !== null ? JSON.parse(jsonValue) : null
         setLogin(data.category)
-        // console.log(data, "hello");
-        // obj = data
     }
     let type = login == "user";
-    console.log(type);
-    // console.log(login, "type");
-    // console.log(obj,"type");
-    // console.log(data.category);
+    // console.log(type);
     useEffect(() => {
         getData()
     }, [])
@@ -89,7 +62,7 @@ function TabNavigator() {
                         options={{
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Icon name='home' size={25} color= {focused ? "white":"black"} />
+                                    <Icon name='home' size={25} color={focused ? "white" : "black"} />
                                 </>
                             )
                         }} />
@@ -98,7 +71,7 @@ function TabNavigator() {
                         options={{
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Icon name='favorite' size={25} color= {focused ? "white":"black"} />
+                                    <Icon name='favorite' size={25} color={focused ? "white" : "black"} />
                                 </>
                             )
                         }} />
