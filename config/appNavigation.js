@@ -28,7 +28,7 @@ const StackNavigator = () => (
     <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
-        <Stack.Screen name='ItemDetails' component={Detail} />
+        <Stack.Screen name='ItemDetails' component={Detail} options={{ headerShown: false }} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name='Additem' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
@@ -52,7 +52,7 @@ function TabNavigator() {
 
 
         < Tab.Navigator
-            screenOptions={{ tabBarShowLabel: false, headerShown: false, tabBarActiveBackgroundColor: '#FA4A0C' }
+            screenOptions={{ tabBarShowLabel: false, headerShown: false }
             }
         >
             {type ?
@@ -62,7 +62,7 @@ function TabNavigator() {
                         options={{
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Icon name='home' size={25} color={focused ? "white" : "black"} />
+                                    <Icon name='home' size={25} color={focused ?  '#FA4A0C' : "black"} />
                                 </>
                             )
                         }} />
@@ -71,7 +71,7 @@ function TabNavigator() {
                         options={{
                             tabBarIcon: ({ focused }) => (
                                 <>
-                                    <Icon name='favorite' size={25} color={focused ? "white" : "black"} />
+                                    <Icon name='favorite' size={25} color={focused ? "#FA4A0C" : "black"} />
                                 </>
                             )
                         }} />

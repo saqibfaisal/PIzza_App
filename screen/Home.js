@@ -54,19 +54,39 @@ const Home = ({ navigation }) => {
           <ActivityIndicator size={60} color='#FA4A0C' />
         </View>
           :
-          <ScrollView>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 10 }} >
+          <ScrollView style={{ height: '100%'}}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 10, backgroundColor: "white" }} >
               {list.length > 0 ? list.map((e, i) => (
-                <TouchableOpacity onPress={() => navigation.navigate('ItemDetails', e)} style={{ width: '50%', paddingHorizontal: 5, marginTop: 30 }} key={i}>
-                  <View style={{ borderRadius: 10, borderWidth: 2, borderColor: '#FA4A0C', backgroundColor: 'white' }}>
-                    <View style={{ alignItems: 'center' }}>
-                      <Image resizeMode='stretch' style={{ height: 150, width: '100%', borderTopRightRadius: 10, borderTopLeftRadius: 10 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
+                <TouchableOpacity onPress={() => navigation.navigate('ItemDetails', e)} style={{
+                  width: '50%', paddingHorizontal: 5, marginTop: 30, justifyContent: "center", alignItems: "center", shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 7,
+                  },
+                  shadowOpacity: 0.41,
+                  shadowRadius: 9.11,
+
+                  elevation: 14,
+                }} key={i}>
+                  <View style={{
+                    borderRadius: 10, borderWidth: 2, borderColor: '#FA4A0C', justifyContent: "center", alignItems: "center", paddingLeft: 10, paddingRight: 10, padding: 10
+                  }}>
+                    <View>
+                      <Image source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} style={{ width: 100, height: 100, borderRadius: 10 }} />
+                    </View>
+                    <View style={{ paddingVertical: 10, paddingHorizontal: 5 }}>
+                      <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black',alignItems:"flex-start" }}>{e.name}</Text>
+
+                      <Text style={{ fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
+                    </View>
+                    {/* <View style={{ alignItems: 'center' }}>
+                      <Image resizeMode='cover' style={{ height: 150, width: '100%', borderTopRightRadius: 10, borderTopLeftRadius: 10 }} source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} />
                     </View>
                     <View style={{ paddingVertical: 10 , paddingHorizontal:5 }}>
-                      <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 18, color: 'black', }}>{e.name}</Text>
+                      <Text style={{  fontWeight: 'bold', fontSize: 18, color: 'black', }}>{e.name}</Text>
 
-                      <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
-                    </View>
+                      <Text style={{  fontWeight: 'bold', fontSize: 14, color: 'grey' }}>{e.price}/- PKR</Text>
+                    </View> */}
                   </View>
                 </TouchableOpacity>
               ))
