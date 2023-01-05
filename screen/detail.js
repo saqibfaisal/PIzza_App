@@ -17,8 +17,8 @@ function Detail({ navigation, route }) {
     let data = route.params;
     let [model, setModel] = useState(data)
     let wishlist = async () => {
-        console.log(data);
-        const jsonValue = JSON.stringify(model)
+        // console.log(data);
+        const jsonValue = JSON.stringify(data)
         let awein = await AsyncStorage.setItem('wishlist', jsonValue)
         console.log(awein, "jejj");
         // model.id = database().ref('wishlist/').push().key
@@ -33,9 +33,9 @@ function Detail({ navigation, route }) {
         //         console.log(err)
         //     })
     }
-    let cart =()=>{
+    // let cart =()=>{
         
-    }
+    // }
 
     return (
         <View>
@@ -67,10 +67,14 @@ function Detail({ navigation, route }) {
                     </View>
                 </View>
                 <View style={{ marginTop: 40, marginLeft: 53, marginRight: 64 }}>
+                    <Text style={{ color: "#000000", fontFamily: "Actor", fontStyle: "normal", fontWeight: "400", fontSize: 17, lineHeight: 20, marginBottom: 8 }}>Detail</Text>
+                    <Text style={{ color: "#000000", fontFamily: "Actor", opacity: 0.5, fontSize: 14, fontWeight: "400", fontStyle: 'normal' }}>{data.detail}</Text>
+                </View>
+                <View style={{ marginTop: 40, marginLeft: 53, marginRight: 64 }}>
                     <Text style={{ color: "#000000", fontFamily: "Actor", fontStyle: "normal", fontWeight: "400", fontSize: 17, lineHeight: 20, marginBottom: 8 }}>Return policy</Text>
                     <Text style={{ color: "#000000", fontFamily: "Actor", opacity: 0.5, fontSize: 14, fontWeight: "400", fontStyle: 'normal' }}>All our foods are double checked before leaving our stores so by any case you found a broken food please contact our hotline immediately.</Text>
                 </View>
-                <TouchableOpacity style={{ margin: 50, marginTop: 40, alignItems: "center" }} onPress={() => { cart() }}>
+                <TouchableOpacity style={{ margin: 50, marginTop: 40, alignItems: "center" }} onPress={() => { wishlist() }}>
                     <Text style={{ padding: 20, paddingLeft: 50, paddingRight: 50, backgroundColor: "#FA4A0C", color: "white", borderRadius: 30 }}>Add to Cart</Text>
                 </TouchableOpacity>
             </ScrollView>
