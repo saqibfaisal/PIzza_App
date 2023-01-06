@@ -13,29 +13,21 @@ import Images from "./assets/pizzaImage.png"
 import database from '@react-native-firebase/database'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 function Detail({ navigation, route }) {
-    // console.log(route.params);
     let data = route.params;
-    let [model, setModel] = useState(data)
+    let [wish, setWish] = useState(["saqib",17])
     let wishlist = async () => {
-        // console.log(data);
+        // const jsonValue = JSON.stringify(wish)
+        // let saved =  await AsyncStorage.setItem("wishlist",jsonValue,(res)=>{
+        //     console.log(res,"local");
+        // })
         const jsonValue = JSON.stringify(data)
-        let awein = await AsyncStorage.setItem('wishlist', jsonValue)
-        console.log(awein, "jejj");
-        // model.id = database().ref('wishlist/').push().key
-        // database().ref(`wishlist/${model.id}`).set(model)
-        //     .then(res => {
-        //         // setIsLoading(false)
-        //         // setModel(initialData)
-        //         ToastAndroid.show('You Add to Wishlist', ToastAndroid.LONG)
-        //     })
-        //     .catch(err => {
-        //         // setIsLoading(false)
-        //         console.log(err)
-        //     })
+        let saved = await AsyncStorage.setItem('wishlist', jsonValue, () => {
+            AsyncStorage.getItem('wishlist').then((res) => {
+                ToastAndroid.show('You Add to Wishlist', ToastAndroid.LONG)
+                
+            })
+        })
     }
-    // let cart =()=>{
-        
-    // }
 
     return (
         <View>
@@ -57,9 +49,6 @@ function Detail({ navigation, route }) {
                         <Text style={{ fontSize: 28, fontWeight: "400", fontFamily: "Actor", color: "#000", textAlign: "center", lineHeight: 34, fontStyle: "normal" }}>
                             {data.name}
                         </Text>
-                        {/* <Text style={{ fontSize: 14, fontWeight: "400", fontFamily: "Actor", color: "#000", textAlign: "center", lineHeight: 34, fontStyle: "normal" }}>
-                        {data.detail}
-                    </Text> */}
 
                         <Text style={{ fontSize: 22, marginTop: 10, textAlign: "center", color: "#FA4A0C", lineHeight: 26, fontWeight: "400", fontFamily: "Actor", fontStyle: "normal" }}>
                             Rs/ {data.price}

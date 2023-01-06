@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import Pizza from "./assets/pizza.jpg";
 import { GlobalStyle } from "../Global";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = ({ navigation }) => {
 
   let [dataLoader, setDataLoader] = useState(false)
@@ -29,16 +30,20 @@ const Home = ({ navigation }) => {
   }, [])
 
 
-  let logoutUser = () => {
+  let logoutUser = async () => {
     auth()
       .signOut()
-      .then(() => {
+      try{
+        // const jsonValue = JSON.stringify(data)
+        // console.log(data);
+        // let awein = await AsyncStorage.removeItem('wishlist')
+        // console.log(awein,"hrll");
         ToastAndroid.show("Logout", ToastAndroid.SHORT);
-        navigation.navigate('Logout')
-      })
-      .catch((err) => {
+        navigation.navigate('Login')
+      }
+      catch(err) {
         console.log(err)
-      })
+      }
   }
 
   return (

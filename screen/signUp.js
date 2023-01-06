@@ -57,7 +57,7 @@ function Login({ navigation }) {
                     <View style={GlobalStyle.SignupView}>
                         <TextInput
                             style={GlobalStyle.SignupInput}
-                            value={model.userName}
+                            value={model.email}
                             onChangeText={e => setModel({ ...model, email: e })}
                             placeholder="Email*"
                         />
@@ -65,7 +65,7 @@ function Login({ navigation }) {
                     <View style={GlobalStyle.SignupView}>
                         <TextInput
                             style={GlobalStyle.SignupInput}
-                            value={model.userName}
+                            value={model.password}
                             onChangeText={e => setModel({ ...model, password: e })}
                             placeholder="Password*"
                         />
