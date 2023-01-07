@@ -15,7 +15,9 @@ function WishList() {
             // // console.log(res,"hello");
             // setWislist(josn)
             // console.log(wishlist, "pasand ha")
-            console.log(res,"hello");
+            setWislist(res)
+            const jsonval = res
+            console.log(jsonval.name,"paese");
         })
         // const jsonValue = await AsyncStorage.getItem('wishlist')
         // console.log(jsonValue,"jsj")
@@ -48,6 +50,7 @@ function WishList() {
                 </TouchableOpacity> */}
             </View>
             {!wishlist ?
+                
                 <View>
                     <View style={{
                         padding: 30, display: "flex", flexDirection: "row", shadowColor: "#000", paddingHorizontal: 30, justifyContent: "space-between",
