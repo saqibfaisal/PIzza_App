@@ -80,6 +80,7 @@ function Login({ navigation }) {
                             value={ model.email }
                             onChangeText={e => setModel({ ...model, email: e })}
                             placeholder="Email*"
+                            keyboardType={'email-address'}
                         />
                     </View>
                     <View style={GlobalStyle.SignupView}>
@@ -88,6 +89,8 @@ function Login({ navigation }) {
                             value={ model.password }
                             onChangeText={e => setModel({ ...model, password: e })}
                             placeholder="Password*"
+                            // keyboardType={'visible-password'}
+                            secureTextEntry={true} 
                         />
                     </View>
                     <Text

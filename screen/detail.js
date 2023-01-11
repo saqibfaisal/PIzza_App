@@ -13,36 +13,27 @@ import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 function Detail({navigation, route}) {
   let data = route.params;
-  let [wish, setWish] = useState(['saqib', 17]);
+  let [wish, setWish] = useState();
   let wishlist = async () => {
-    // const jsonValue = JSON.stringify(wish)
-    // let saved =  await AsyncStorage.setItem("wishlist",jsonValue,(res)=>{
-    //     console.log(res,"local");
-    // })
-    // let con = jsonValue.concat(data)
-    // console.log(con,"hello")
-    // await AsyncStorage.removeItem("wishlist")
+    // await AsyncStorage.removeItem('wishlist');
 
-    const asyncValue = await AsyncStorage.getItem('wishlist', (res, err) => {
-      console.log(res, 'hello');
-    });
+    const asyncValue = await AsyncStorage.getItem('wishlist', (res, err) => {});
     if (asyncValue?.length) {
       const jsonValue = [data];
       const newArray = jsonValue.concat(JSON.parse(asyncValue));
-      console.log(newArray);
-      AsyncStorage.setItem('wishlist', JSON.stringify(newArray));
+      let item = AsyncStorage.setItem('wishlist', JSON.stringify(newArray));
+      setWish(item);
+      setTimeout(() => {
+        ToastAndroid.show('You Add to Wishlist', ToastAndroid.SHORT);
+      }, 1500);
     } else {
       console.log('hello');
-      AsyncStorage.setItem('wishlist', JSON.stringify([data]));
+      let item = AsyncStorage.setItem('wishlist', JSON.stringify([data]));
+      setWish(item);
+      setTimeout(() => {
+        ToastAndroid.show('You Add to Wishlist', ToastAndroid.SHORT);
+      }, 1500);
     }
-
-    // const jsonValue = JSON.stringify(data)
-    // let saved = await AsyncStorage.setItem('wishlist', jsonValue, () => {
-    //     AsyncStorage.getItem('wishlist').then((res) => {
-    //         ToastAndroid.show('You Add to Wishlist', ToastAndroid.LONG)
-
-    //     })
-    // })
   };
 
   return (
@@ -65,7 +56,11 @@ function Detail({navigation, route}) {
             onPress={() => {
               wishlist();
             }}>
-            <Icon name="favorite" size={30} />
+            <Icon
+              name="favorite"
+              size={30}
+              color={wish ? '#ED64A6' : 'black'}
+            />
           </TouchableOpacity>
         </View>
         <View
@@ -164,7 +159,7 @@ function Detail({navigation, route}) {
         <TouchableOpacity
           style={{margin: 50, marginTop: 40, alignItems: 'center'}}
           onPress={() => {
-            navigation.navigate('order')
+            navigation.navigate('order');
             // wishlist();
           }}>
           <Text
@@ -176,7 +171,7 @@ function Detail({navigation, route}) {
               color: 'white',
               borderRadius: 30,
             }}>
-            Place a order
+            Add to Cart
           </Text>
         </TouchableOpacity>
       </ScrollView>
