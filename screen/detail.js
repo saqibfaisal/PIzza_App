@@ -22,13 +22,20 @@ function Detail({navigation, route}) {
     // let con = jsonValue.concat(data)
     // console.log(con,"hello")
     // await AsyncStorage.removeItem("wishlist")
+
     const asyncValue = await AsyncStorage.getItem('wishlist', (res, err) => {
-        console.log(res, 'hello');
+      console.log(res, 'hello');
     });
-    const jsonValue = [data];
-    const newArray = jsonValue.concat(JSON.parse(asyncValue));
-    console.log(newArray);
-    await AsyncStorage.setItem("wishlist", JSON.stringify(newArray));
+    if (asyncValue?.length) {
+      const jsonValue = [data];
+      const newArray = jsonValue.concat(JSON.parse(asyncValue));
+      console.log(newArray);
+      AsyncStorage.setItem('wishlist', JSON.stringify(newArray));
+    } else {
+      console.log('hello');
+      AsyncStorage.setItem('wishlist', JSON.stringify([data]));
+    }
+
     // const jsonValue = JSON.stringify(data)
     // let saved = await AsyncStorage.setItem('wishlist', jsonValue, () => {
     //     AsyncStorage.getItem('wishlist').then((res) => {
@@ -157,7 +164,8 @@ function Detail({navigation, route}) {
         <TouchableOpacity
           style={{margin: 50, marginTop: 40, alignItems: 'center'}}
           onPress={() => {
-            wishlist();
+            navigation.navigate('order')
+            // wishlist();
           }}>
           <Text
             style={{
@@ -168,7 +176,7 @@ function Detail({navigation, route}) {
               color: 'white',
               borderRadius: 30,
             }}>
-            Add to Cart
+            Place a order
           </Text>
         </TouchableOpacity>
       </ScrollView>

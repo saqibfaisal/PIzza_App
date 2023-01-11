@@ -14,6 +14,7 @@ import database from '@react-native-firebase/database'
 import WishList from '../screen/wishlist';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import Detail from '../screen/detail';
+import Order from '../screen/order';
 function AppNavigation() {
     return (
 
@@ -31,6 +32,7 @@ const StackNavigator = () => (
         <Stack.Screen name='ItemDetails' component={Detail} options={{ headerShown: false }} />
         <Stack.Screen name='HomeScreen' component={TabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name='Additem' component={TabNavigator} options={{ headerShown: false }} />
+        <Stack.Screen name='order' component={TabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
 )
 
@@ -75,6 +77,15 @@ function TabNavigator() {
                                 </>
                             )
                         }} />
+                    <Tab.Screen name="order"
+                        component={Order}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <>
+                                    <Image style={{ width: 22, height: 22, tintColor: focused ? '#FA4A0C' : 'black' }} source={{ uri: 'https://m.media-amazon.com/images/I/418wK+6vaQL.png' }} />
+                            </>
+                            )
+                        }} />
                 </>
                 :
                 <Tab.Screen name="Add"
@@ -82,7 +93,7 @@ function TabNavigator() {
                     options={{
                         tabBarIcon: ({ focused }) => (
                             <>
-                                <Image style={{ width: 22, height: 22, tintColor: focused ? 'white' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1237/1237946.png' }} />
+                                <Image style={{ width: 22, height: 22, tintColor: focused ? '#FA4A0C' : 'black' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1237/1237946.png' }} />
                             </>
                         )
                     }} />
