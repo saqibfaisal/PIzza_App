@@ -66,7 +66,7 @@ const StackNavigator = () => {
       />
       <Stack.Screen
         name="order"
-        component={TabNavigator}
+        component={Order}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
@@ -131,7 +131,7 @@ function TabNavigator() {
               ),
             }}
           />
-          <Tab.Screen
+          {/* <Tab.Screen
             name="order"
             component={Order}
             options={{
@@ -150,7 +150,7 @@ function TabNavigator() {
                 </>
               ),
             }}
-          />
+          /> */}
         </>
       ) : (
         <Tab.Screen

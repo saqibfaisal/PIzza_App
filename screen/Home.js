@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import Pizza from "./assets/pizza.jpg";
 import { GlobalStyle } from "../Global";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Images from './assets/pizzaImage.png';
 const Home = ({ navigation }) => {
 
   let [dataLoader, setDataLoader] = useState(false)
@@ -77,7 +78,7 @@ const Home = ({ navigation }) => {
                     borderRadius: 10, borderWidth: 2, borderColor: '#FA4A0C', justifyContent: "center", alignItems: "center", paddingLeft: 10, paddingRight: 10, padding: 10
                   }}>
                     <View>
-                      <Image source={{ uri: 'https://www.pizzapoint.com.pk/upload/1666936269-Chicken%20Max.jpeg' }} style={{ width: 100, height: 100, borderRadius: 10 }} />
+                      <Image source={Images} style={{ width: 100, height: 100, borderRadius: 10 }} />
                     </View>
                     <View style={{ paddingVertical: 10, paddingHorizontal: 5 }}>
                       <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black',alignItems:"flex-start" }}>{e.name}</Text>

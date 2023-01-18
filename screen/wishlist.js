@@ -1,19 +1,33 @@
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import database from '@react-native-firebase/database';
 import Images from './assets/pizzaImage.png';
 import Image2 from './assets/Wishlist.png';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
-function WishList() {
+function WishList({ navigation }) {
   const [wishlist, setWislist] = useState([]);
-  let getData = async () => {
+  let getDatas = async () => {
     let item = await AsyncStorage.getItem('wishlist');
     setWislist(JSON.parse(item));
   };
   useEffect(() => {
-    getData();
+    getDatas();
   }, []);
+  let addoder = async () => {
+    let item = await AsyncStorage.getItem('wishlist');
+    let order= JSON.parse(item);
+    order.id = database().ref('order/').push().key
+        database().ref(`order/${order.id}`).set(order)
+            .then(res => {
+              console.log(res);
+              navigation.navigate('order')
+            })
+            .catch(err => {
+              console.log(err)
+            })
+
+  }
   return (
     <View>
       <View
@@ -24,13 +38,17 @@ function WishList() {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}>
+        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>
           Wishlist
         </Text>
+        <TouchableOpacity onPress={() =>addoder()} >
+
+          <Text style={{ color: 'white',  fontSize: 18 }}>Checkout</Text>
+        </TouchableOpacity>
       </View>
 
       {wishlist?.length ? (
-        <ScrollView style={{height: '100%'}}>
+        <ScrollView style={{ height: '100%' }}>
           {wishlist?.map((data, ind) => (
             <View
               key={ind}
@@ -53,11 +71,11 @@ function WishList() {
                 elevation: 2,
                 borderRadius: 15,
               }}>
-              <View style={{display: 'flex', flexDirection: 'row'}}>
-                <View style={{marginTop: 20}}>
+              <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <View style={{ marginTop: 5 }}>
                   <Image
                     source={Images}
-                    style={{width: 80, height: 80, borderRadius: 30}}
+                    style={{ width: 80, height: 80, borderRadius: 30 }}
                   />
                 </View>
                 <View
@@ -89,9 +107,9 @@ function WishList() {
                     style={{
                       display: 'flex',
                       justifyContent: 'center',
-                      alignItems: 'flex-end',
+                      // alignItems: 'flex-end',
                     }}>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                       style={{
                         backgroundColor: '#FA4A0C',
                         color: 'white',
@@ -100,9 +118,11 @@ function WishList() {
                         borderRadius: 15,
                         alignItems: 'center',
                         width: 80,
-                      }}>
-                      <Text style={{fontSize: 15}}>add</Text>
-                    </TouchableOpacity>
+                        fontSize: 15
+                      }} > */}
+                      {/* Add */}
+                      {/* <Text style={{fontSize: 15}}>add</Text> */}
+                    {/* </TouchableOpacity> */}
                   </View>
                 </View>
               </View>
@@ -132,10 +152,10 @@ function WishList() {
             alignItems: 'center',
             marginTop: 40,
           }}>
-          <Text style={{fontSize: 28, fontWeight: 'bold'}}>No WishList</Text>
+          <Text style={{ fontSize: 28, fontWeight: 'bold' }}>No WishList</Text>
           <Image
             source={Image2}
-            style={{width: '70%', height: '70%', margin: 20, borderRadius: 30}}
+            style={{ width: '70%', height: '70%', margin: 20, borderRadius: 30 }}
           />
         </View>
       )}
